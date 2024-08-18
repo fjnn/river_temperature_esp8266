@@ -1,0 +1,40 @@
+import numpy as np
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        np_prices = np.array(prices)
+
+        if len(prices) < 2:
+            return 0
+
+        min_x = np_prices[0]
+        max_x = np_prices[1]
+        profit = 0
+        profit_temp = 0
+        for i in range(len(prices)):
+            if np_prices[i] < min_x:
+                min_x = np_prices[i]
+                print('min:', min_x)
+            for j in range(i+1, len(prices)):
+                if(np_prices[j] > max_x ):
+                    print('j:', j, prices[j], 'temp:', profit_temp, 'prof:', profit)
+                if np_prices[j] > max_x and profit_temp >= profit:
+                    max_x = np_prices[j]
+                    profit_temp = max_x - min_x
+                    profit = profit_temp
+                    print('max:', max_x)
+                profit_temp = max_x - min_x
+            if profit_temp > profit:
+                profit = profit_temp
+        print('min:', min_x, 'max:', max_x, 'temp:', profit_temp, 'prof:', profit)
+        if max_x == np_prices[1] and len(prices) != 2 and len(prices) != 3:
+            return 0
+        return profit
+
+
+
+#        min_x = np_prices.min()
+#        max_x = np_prices.max()
+
+
+        
